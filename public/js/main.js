@@ -50,8 +50,23 @@ function reiniciarJogo() {
     $("#contador-palavras").text("0");
     $("#tempo-digitacao").text(tempoInicial);
     campo.removeClass("campo-desativado");
+    campo.removeClass("borda-vermelha");
+    campo.removeClass("borda-verde");
     inicializarCronometro();
   });
+}
+
+function inicializarMarcadores() {
+  var frase = $(".frase").text();
+  $(".campo-digitacao").on("input", function(){
+    var digitado = campo.val();
+    var comparavel = frase.substr(0,digitado.length);
+    if (digitado == comparavel) {
+      campo.addClass("borda-verde");
+    } else {
+      campo.addClass("borda-vermelha")
+    }
+  })
 }
 
 // ======== Carregar ao iniciar a página ========
@@ -60,6 +75,7 @@ $(
     atualizaTamanhoFrase();
     inicializarContadores();
     inicializarCronometro();
+    inicializarMarcadores();
     $("#botao-reiniciar").click(reiniciarJogo());
   }
 )

@@ -1,14 +1,24 @@
 .frase {
   font-size: 1.5em;
+  text-align: justify;
 }
 
 .campo-digitacao {
   font-size: 1.3em;
   height: 150px;
+  border: 3px solid black;
 }
 
 .campo-desativado {
   background-color: lightgrey;
+}
+
+.borda-verde {
+  border: 6px solid green;
+}
+
+.borda-vermelha {
+  border: 6px solid red;
 }
 
 .icones {
