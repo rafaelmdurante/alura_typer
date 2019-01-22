@@ -49,6 +49,7 @@ function reiniciarJogo() {
     $("#contador-caracteres").text("0");
     $("#contador-palavras").text("0");
     $("#tempo-digitacao").text(tempoInicial);
+    campo.removeClass("campo-desativado");
     inicializarCronometro();
   });
 }
