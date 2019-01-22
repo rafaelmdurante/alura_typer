@@ -36,6 +36,7 @@ function inicializarCronometro() {
         campo.attr("disabled", true);
         clearInterval(cronometro);
         $("#botao-reiniciar").attr("disabled", false);
+        campo.addClass("campo-desativado");
       }
     }, 1000);
   });
