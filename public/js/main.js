@@ -33,13 +33,26 @@ function inicializarCronometro() {
       tempoRestante--;
       $("#tempo-digitacao").text(tempoRestante);
       if (tempoRestante < 1) {
-        campo.attr("disabled", true);
         clearInterval(cronometro);
-        $("#botao-reiniciar").attr("disabled", false);
-        campo.addClass("campo-desativado");
+        inserePlacar();
+        finalizarJogo();
       }
     }, 1000);
   });
+}
+
+function finalizarJogo() {
+  campo.attr("disabled", true);
+  $("#botao-reiniciar").attr("disabled", false);
+  campo.addClass("campo-desativado");
+}
+
+function inserePlacar() {
+  var corpoTabela = $(".placar").find("tbody");
+  var nome = "Miranda";
+  var numPalavrasPlacar = $("#contador-palavras").text();
+  var linha = `<tr><td>${nome}</td><td>${numPalavrasPlacar}</td></tr>`;
+  corpoTabela.prepend(linha);
 }
 
 function reiniciarJogo() {
