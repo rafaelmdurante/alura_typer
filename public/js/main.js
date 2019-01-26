@@ -1,6 +1,17 @@
 // ======== Variáveis Globais ========
 var tempoInicial = $("#tempo-digitacao").text();
 var campo = $(".campo-digitacao");
+var btnReiniciar = $("#botao-reiniciar");
+
+// ======== Carregar ao iniciar a página ========
+$(
+  function(){
+    atualizaTamanhoFrase();
+    inicializarContadores();
+    inicializarCronometro();
+    inicializarMarcadores();
+  }
+)
 
 // ======== Funções ========
 function atualizaTamanhoFrase() {
@@ -28,14 +39,14 @@ function inicializarCronometro() {
   // Controle do tempo
   var tempoRestante = $("#tempo-digitacao").text();
   campo.one("focus", function() {
-    $("#botao-reiniciar").attr("disabled", true);
+    $("#botao-reiniciar").unbind('click');
     var cronometro = setInterval(function() {
       tempoRestante--;
       $("#tempo-digitacao").text(tempoRestante);
       if (tempoRestante < 1) {
         clearInterval(cronometro);
-        inserePlacar();
         finalizarJogo();
+        $("#botao-reiniciar").click(reiniciarJogo);
       }
     }, 1000);
   });
@@ -43,59 +54,21 @@ function inicializarCronometro() {
 
 function finalizarJogo() {
   campo.attr("disabled", true);
-  $("#botao-reiniciar").attr("disabled", false);
-  campo.addClass("campo-desativado");
-}
-
-function inserePlacar() {
-  var corpoTabela = $(".placar").find("tbody");
-  var nome = "Miranda";
-  var numPalavrasPlacar = $("#contador-palavras").text();
-  var linha = novaLinha(nome, numPalavrasPlacar);
-  linha.find(".botao-remover").click(removerLinha);
-  corpoTabela.prepend(linha);
-}
-
-function novaLinha(usuario, palavras) {
-  // Construindo Linhas e Colunas
-  var linha = $("<tr>");
-  var colNome = $("<td>").text(usuario);
-  var colPalavras = $("<td>").text(palavras);
-  var colRemover = $("<td>");
-
-  var link = $("<a>").attr("href", "#").addClass("botao-remover");
-  var icone = $("<i>").addClass("material-icons").text("delete");
-
-  // Agrupando linhas e colunas
-  // Link no Icon
-  link.append(icone);
-  // Icone
-  colRemover.append(link);
-  // Monta linha completa
-  linha.append(colNome);
-  linha.append(colPalavras);
-  linha.append(colRemover);
-
-  return linha;
-}
-
-function removerLinha(event) {
-  event.preventDefault();
-  $(this).parent().parent().remove();
+  campo.toggleClass("campo-desativado");
+  inserePlacar();
 }
 
 function reiniciarJogo() {
-  $("#botao-reiniciar").click(function(){
-    campo.attr("disabled", false);
-    campo.val("");
-    $("#contador-caracteres").text("0");
-    $("#contador-palavras").text("0");
-    $("#tempo-digitacao").text(tempoInicial);
-    campo.removeClass("campo-desativado");
-    campo.removeClass("borda-vermelha");
-    campo.removeClass("borda-verde");
-    inicializarCronometro();
-  });
+  campo.attr("disabled", false);
+  campo.val("");
+  $("#contador-caracteres").text(0);
+  $("#contador-palavras").text(0);
+  $("#tempo-digitacao").text(tempoInicial);
+  inicializarCronometro();
+  campo.removeClass("campo-desativado");
+  campo.removeClass("borda-vermelha");
+  campo.removeClass("borda-verde");
+
 }
 
 function inicializarMarcadores() {
@@ -105,19 +78,10 @@ function inicializarMarcadores() {
     var comparavel = frase.substr(0,digitado.length);
     if (digitado == comparavel) {
       campo.addClass("borda-verde");
+      campo.removeClass("borda-vermelha");
     } else {
-      campo.addClass("borda-vermelha")
+      campo.addClass("borda-vermelha");
+      campo.removeClass("borda-verde");
     }
   })
 }
-
-// ======== Carregar ao iniciar a página ========
-$(
-  function(){
-    atualizaTamanhoFrase();
-    inicializarContadores();
-    inicializarCronometro();
-    inicializarMarcadores();
-    $("#botao-reiniciar").click(reiniciarJogo());
-  }
-)
