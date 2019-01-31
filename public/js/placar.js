@@ -6,7 +6,10 @@ function inserePlacar() {
   var numPalavrasPlacar = $("#contador-palavras").text();
   var linha = novaLinha(nome, numPalavrasPlacar);
   linha.find(".botao-remover").click(removerLinha);
-  corpoTabela.prepend(linha);
+  corpoTabela.append(linha);
+
+  $(".placar").slideDown(500);
+  scrollPlacar();
 }
 
 function novaLinha(usuario, palavras) {
@@ -43,4 +46,13 @@ function removerLinha(event) {
 
 function mostraPlacar() {
   $(".placar").stop().slideToggle(400);
+}
+
+function scrollPlacar() {
+  var posicaoPlacar = $(".placar").offset().top;
+
+  $("html").animate(
+  {
+    scrollTop: posicaoPlacar+'px'
+  }, 1000);
 }
