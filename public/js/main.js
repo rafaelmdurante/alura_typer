@@ -21,6 +21,11 @@ function atualizaTamanhoFrase() {
   tamanhoFrase.text(numPalavras);
 }
 
+function atualizaTempoInicial(tempo) {
+  tempoInicial = tempo;
+  $("#tempo-digitacao").text(tempo);
+}
+
 function inicializarContadores() {
   // Controle do Campo Digitação
   campo.on("input", function(){
@@ -37,8 +42,8 @@ function inicializarContadores() {
 
 function inicializarCronometro() {
   // Controle do tempo
-  var tempoRestante = $("#tempo-digitacao").text();
   campo.one("focus", function() {
+    var tempoRestante = $("#tempo-digitacao").text();
     $("#botao-reiniciar").unbind('click');
     var cronometro = setInterval(function() {
       tempoRestante--;
@@ -72,8 +77,8 @@ function reiniciarJogo() {
 }
 
 function inicializarMarcadores() {
-  var frase = $(".frase").text();
   $(".campo-digitacao").on("input", function(){
+    var frase = $(".frase").text();
     var digitado = campo.val();
     var comparavel = frase.substr(0,digitado.length);
     if (digitado == comparavel) {
