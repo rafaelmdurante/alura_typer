@@ -12,10 +12,16 @@ $(
     inicializarMarcadores();
     $("#botao-reiniciar").click(reiniciarJogo);
     atualizaPlacar();
+    // Inicializa Selectize
     $("#usuarios").selectize({
       create: true,
       sortField: 'text'
     });
+    // Inicializa Tooltipster
+    $(".tooltip").tooltipster();
+    $("#botao-sync").tooltipster({
+      trigger: 'custom'
+    })
   }
 )
 
