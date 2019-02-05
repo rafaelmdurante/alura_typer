@@ -12,6 +12,10 @@ $(
     inicializarMarcadores();
     $("#botao-reiniciar").click(reiniciarJogo);
     atualizaPlacar();
+    $("#usuarios").selectize({
+      create: true,
+      sortField: 'text'
+    });
   }
 )
 
