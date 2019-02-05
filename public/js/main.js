@@ -10,6 +10,8 @@ $(
     inicializarContadores();
     inicializarCronometro();
     inicializarMarcadores();
+    $("#botao-reiniciar").click(reiniciarJogo);
+    atualizaPlacar();
   }
 )
 

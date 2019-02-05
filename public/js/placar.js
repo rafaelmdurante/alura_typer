@@ -77,3 +77,13 @@ function sincronizaPlacar() {
     console.log("Placar sincronizado com sucesso.");
   });
 }
+
+function atualizaPlacar() {
+  $.get("http://localhost:3000/placar",function(data){
+    $(data).each(function(){
+      let linha = novaLinha(this.usuario, this.pontos);
+      linha.find(".botao-remover").click(removerLinha);
+      $("tbody").append(linha);
+    });
+  });
+}
